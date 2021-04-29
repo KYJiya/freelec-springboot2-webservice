@@ -17,8 +17,11 @@ var main = {
             author: $('#author').val(),
             content: $('#content').val()
         };
-
-        $.ajax({
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $.ajaxSend(function(e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        }).ajax({
             type: 'POST',
             url: '/api/v1/posts',
             dataType: 'json',
@@ -69,19 +72,5 @@ var main = {
     }
 
 };
-
-var header = $("meta[name='_csrf_header']").attr('content');
-var token = $("meta[name='_csrf']").attr('content');
-
-$.ajax({
-    url: url,
-    beforeSend: function(xhr){
-        xhr.setRequestHeader(header, token);
-    },
-    success: function(res) {
-        console.log(res);
-    }
-});
-
 
 main.init();

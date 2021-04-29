@@ -19,14 +19,15 @@ var main = {
         };
         var token = $("meta[name='_csrf']").attr("#content");
         var header = $("meta[name='_csrf_header']").attr("#content");
-        $.ajax({
+        $.ajaxPrefilter (function (options, originalOptions, jqXHR) {
+            if (options['type'].toLowerCase() === "post") {
+                jqXHR.setRequestHeader(header, token);
+            }
+        }.ajax({
             type: 'POST',
             url: '/api/v1/posts',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader(header, token);
-            },
             data: JSON.stringify(data)
         }).done(function () {
             alert('글이 등록되었습니다.');

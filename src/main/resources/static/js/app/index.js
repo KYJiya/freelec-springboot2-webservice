@@ -23,7 +23,7 @@ var main = {
             if (options['type'].toLowerCase() === "post") {
                 jqXHR.setRequestHeader(header, token);
             }
-        }.ajax({
+        }).ajax({
             type: 'POST',
             url: '/api/v1/posts',
             dataType: 'json',

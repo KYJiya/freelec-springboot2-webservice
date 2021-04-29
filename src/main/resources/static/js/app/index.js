@@ -70,12 +70,18 @@ var main = {
 
 };
 
-$(document).ready(function() {
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-    $(document).ajaxSend(function(e, xhr, options) {
+var header = $("meta[name='_csrf_header']").attr('content');
+var token = $("meta[name='_csrf']").attr('content');
+
+$.ajax({
+    url: url,
+    beforeSend: function(xhr){
         xhr.setRequestHeader(header, token);
-    });
+    },
+    success: function(res) {
+        console.log(res);
+    }
 });
+
 
 main.init();

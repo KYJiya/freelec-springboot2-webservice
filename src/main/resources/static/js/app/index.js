@@ -17,14 +17,6 @@ var main = {
             author: $('#author').val(),
             content: $('#content').val()
         };
-        var token = $("meta[name='_csrf']").attr("#content");
-        var header = $("meta[name='_csrf_header']").attr("#content");
-        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-            if (options['type'].toLowerCase() === "post") {
-                jqXHR.setRequestHeader(header, token);
-            }
-        });
-
         $.ajax({
             type: 'POST',
             url: '/api/v1/posts',

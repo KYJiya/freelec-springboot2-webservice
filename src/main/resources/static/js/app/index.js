@@ -19,7 +19,7 @@ var main = {
         };
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
-        $.ajaxPrefilter (function (options, originalOptions, jqXHR) {
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
             if (options['type'].toLowerCase() === "post") {
                 jqXHR.setRequestHeader(header, token);
             }
